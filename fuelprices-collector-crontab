@@ -1,0 +1,2 @@
+0,30 * * * * ( sleep 10 ; . /collector/env ; python3 -u /collector/fuelprices-collector.py &>/dev/stdout )
+# Empty line
