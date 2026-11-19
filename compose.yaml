@@ -1,11 +1,12 @@
 name: fuelprices-collector
+
 services:
   fuelprices-collector:
     image: simonmader17/fuelprices-collector:latest
     container_name: fuelprices-collector
     restart: always
     environment:
-      - TZ=Europe/Vienna
-      - DATABASE_URL=db:5432
-      - DATABASE_USERNAME=<username>
-      - DATABASE_PASSWORD=<password>
+      TZ: Europe/Vienna
+      DATABASE_URL: db:5432
+      DATABASE_USERNAME: <username>
+      DATABASE_PASSWORD: <password>

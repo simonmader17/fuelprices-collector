@@ -28,4 +28,4 @@ docker build -t simonmader17/fuelprices-collector .
 docker compose up -d
 ```
 
-See [`docker-compose.yml`](docker-compose.yml).
+See [`compose.yaml`](compose.yaml).
