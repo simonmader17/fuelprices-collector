@@ -1,9 +1,10 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import psycopg2
 import time
 import logging
 import os
+import sys
 logging.basicConfig(
     format='%(asctime)s [ %(levelname)-8s ] %(message)s',
     level=logging.DEBUG,
@@ -98,5 +99,24 @@ def fuel_prices():
         write_fuel_prices(timestamp, price_jet, price_avanti, price_jet_langenrohr, price_bp)
 
 
+def seconds_until_next_run(now=None):
+    """Seconds until the next :00:10 or :30:10 (10 s after the full/half hour)."""
+    now = now or datetime.now()
+    slot = now.replace(minute=0 if now.minute < 30 else 30, second=10, microsecond=0)
+    if slot <= now:
+        slot += timedelta(minutes=30)
+    return (slot - now).total_seconds()
+
+
 if __name__ == "__main__":
-    fuel_prices()
+    if "--once" in sys.argv or os.getenv("RUN_ONCE") == "1":
+        fuel_prices()
+        sys.exit(0)
+
+    logging.info("Starting collector, collecting at :00 and :30")
+    while True:
+        time.sleep(seconds_until_next_run())
+        try:
+            fuel_prices()
+        except Exception:
+            logging.exception("Collecting fuel prices failed")

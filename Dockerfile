@@ -1,9 +1,6 @@
-FROM python:3.9.2-alpine
-RUN pip3 install --upgrade pip
-RUN pip3 install 'requests==2.31.0' 'psycopg2-binary==2.9.6'
-WORKDIR /collector
+FROM python:3.13-alpine
+RUN pip3 install --no-cache-dir 'requests==2.34.2' 'psycopg2-binary==2.9.13' && adduser -S -H app
+WORKDIR /app
 COPY fuelprices-collector.py .
-COPY fuelprices-collector-crontab .
-COPY entrypoint.sh .
-RUN chmod +x /collector/entrypoint.sh && cat /collector/fuelprices-collector-crontab >> /etc/crontabs/root
-CMD ["/collector/entrypoint.sh"]
+USER app
+CMD ["python3", "-u", "fuelprices-collector.py"]
