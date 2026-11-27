@@ -23,9 +23,13 @@ DATABASE_URL=localhost:5432 python3 -u fuelprices-collector.py --once
 
 ## Docker
 
+GitHub Actions builds the image on every push to `main` and publishes it to `ghcr.io/simonmader17/fuelprices-collector` (tags `latest` and `sha-<commit>`).
+
 ```sh
-docker build -t simonmader17/fuelprices-collector .
+docker compose pull
 docker compose up -d
 ```
+
+To build the image locally instead: `docker build -t ghcr.io/simonmader17/fuelprices-collector .`
 
 See [`compose.yaml`](compose.yaml).

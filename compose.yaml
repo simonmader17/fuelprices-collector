@@ -2,7 +2,7 @@ name: fuelprices-collector
 
 services:
   fuelprices-collector:
-    image: simonmader17/fuelprices-collector:latest
+    image: ghcr.io/simonmader17/fuelprices-collector:latest
     container_name: fuelprices-collector
     restart: always
     environment:
