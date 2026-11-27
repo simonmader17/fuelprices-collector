@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "db:5432")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 DATABASE_USERNAME = os.environ.get("DATABASE_USERNAME", "fuelprices")
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD", "fuelprices")
 
@@ -109,6 +109,9 @@ def seconds_until_next_run(now=None):
 
 
 if __name__ == "__main__":
+    if not DATABASE_URL:
+        sys.exit("DATABASE_URL is not set")
+
     if "--once" in sys.argv or os.getenv("RUN_ONCE") == "1":
         fuel_prices()
         sys.exit(0)

@@ -8,7 +8,7 @@ Part of the fuelprices stack, together with [fuelprices-api](https://github.com/
 
 | Variable | Default | Description |
 |---|---|---|
-| `DATABASE_URL` | `db:5432` | Postgres `host:port` |
+| `DATABASE_URL` | – (required) | Postgres `host:port`, e.g. `db:5432` |
 | `DATABASE_USERNAME` | `fuelprices` | Postgres user |
 | `DATABASE_PASSWORD` | `fuelprices` | Postgres password |
 
